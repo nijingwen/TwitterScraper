@@ -3,15 +3,15 @@ from preprocess import PreProcess
 from scraper import Scraper
 
 def main():
-    csv_file_paths = [
-        '../data/twitter/2018/2018-01.csv', 
-        '../data/twitter/2018/2018-02.csv'
-    ]
+    # init root path
+    root_file_path = '../data'
 
+    # init data preprocess
     preprocess = PreProcess()
-    preprocess.merge_tables(csv_file_paths)
+    preprocess.merge_tables(root_file_path)
     ids = preprocess.get_status_ids()
 
+    # scrape tweets
     scraper = Scraper(ids)
     scraper.execute()
 
