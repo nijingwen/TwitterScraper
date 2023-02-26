@@ -6,27 +6,20 @@ class PreProcess:
         # list of status ids
         self.status_ids = list()
 
-    # keep csv files
-    def _get_csv_files_only(self, files: list) -> list:
-        res = list()
-        for file in files:
-            if '.csv' in file: res.append(file)
-        return res
-
     # combine dirpath and filename
-    def _create_full_paths(self, dirpath: str, filenames: list) -> list:
+    def _add_full_paths_for_csv(self, dirpath: str, filenames: list) -> list:
         res = list()
         for file in filenames:
-            filename = dirpath + '/' + file
-            res.append(filename)
+            if '.csv' in file: 
+                filename = dirpath + '/' + file
+                res.append(filename)
         return res
 
     # read all files recursively from provided root directory provided
     def _read_files_from_root(self, root_path: str) -> list:
         res = list()
         for (dirpath, dirnames, filenames) in walk(root_path):
-            cur = self._create_full_paths(dirpath, filenames)
-            cur = self._get_csv_files_only(cur)
+            cur = self._add_full_paths_for_csv(dirpath, filenames)
             res.extend(cur)
         return res
 
