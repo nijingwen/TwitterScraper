@@ -1,6 +1,7 @@
 import pandas as pd
 from os import walk
 
+
 class PreProcess:
     def __init__(self) -> None:
         # list of status ids
@@ -10,7 +11,7 @@ class PreProcess:
     def _add_full_paths_for_csv(self, dirpath: str, filenames: list) -> list:
         res = list()
         for file in filenames:
-            if '.csv' in file: 
+            if '.csv' in file:
                 filename = dirpath + '/' + file
                 res.append(filename)
         return res
@@ -23,7 +24,6 @@ class PreProcess:
             res.extend(cur)
         return res
 
-
     # merge csv files into one table
     def merge_tables(self, root_path: str) -> None:
         paths = self._read_files_from_root(root_path)
@@ -32,6 +32,5 @@ class PreProcess:
             df = pd.read_csv(path)
             self.status_ids.extend(df.status_id.values.tolist())
 
-    
     def get_status_ids(self) -> list:
         return self.status_ids

@@ -1,10 +1,13 @@
 
 from preprocess import PreProcess
 from scraper import Scraper
+import os
+
 
 def main():
     # init root path
-    root_file_path = '../data'
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    root_file_path = os.path.join(dir_path, '../data')
 
     # init data preprocess
     preprocess = PreProcess()
@@ -13,7 +16,8 @@ def main():
 
     # scrape tweets
     scraper = Scraper(ids)
-    scraper.execute()
+    result = scraper.execute()
+
 
 if __name__ == '__main__':
     main()
