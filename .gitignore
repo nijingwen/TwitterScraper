@@ -1,9 +1,6 @@
 # key
 *.pem
 
-# sample data
-data
-
 # ide
 .DS_Store
 
