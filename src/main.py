@@ -11,11 +11,11 @@ import configparser
 def main():
     # get config paser
     config = configparser.ConfigParser()
+    config.read(os.path.join(dir_path, '../.config'))
 
     # init root path
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    config.read(os.path.join(dir_path, '../config/data.config'))
-    input_path = config['inputs']['filepath']
+    input_path = config['system']['filepath']
     root_path = os.path.join(dir_path, input_path)
 
     # init data preprocess
@@ -25,10 +25,10 @@ def main():
 
     # scrape tweets
     scraper = Scraper(ids)
-    result = scraper.execute(4)
+    compute_core = int(config['system']['compute_core'])
+    result = scraper.execute(compute_core)
 
     # write file to s3 bucket
-    config.read(os.path.join(dir_path, '../config/s3.config'))
     bucket_name = config['s3_details']['bucket_name']
     filename = config['s3_details']['file_key']
     region = config['s3_details']['region']
